@@ -18,6 +18,23 @@ func (c *Contact) Value() Fullname {
 	return c.fullname
 }
 
+var contactCounter int
+
+func NewContact(firstname, surname, patronymic, phone string) *Contact {
+	contactCounter++
+	name := &Fullname{
+		Firstname:  firstname,
+		Surname:    surname,
+		Patronymic: patronymic,
+	}
+
+	return &Contact{
+		ID:       contactCounter,
+		fullname: *name,
+		Phone:    phone,
+	}
+}
+
 func (c *Contact) Validate() error {
 	validate := validator.New()
 	err := validate.Struct(c)
